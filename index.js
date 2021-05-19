@@ -28,6 +28,7 @@ const port = process.env.PORT || 6868;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/uploads', express.static('uploads'));
 
 app.use('/seller', require('./routers/SellerRouter'));
 app.use('/customer', require('./routers/CustomerRouter'));
@@ -36,6 +37,7 @@ app.use('/rating', require('./routers/RatingRouter'));
 app.use('/like', require('./routers/LikeRouter'));
 app.use('/order', require('./routers/OrderRouter'));
 app.use('/comment', require('./routers/CommentRouter'));
+app.use('/upload', require('./routers/FileUplpoad'))
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');

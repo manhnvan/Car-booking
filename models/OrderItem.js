@@ -15,6 +15,10 @@ const orderItemSchema = mongoose.Schema({
         require: true,
         ref: 'seller',
     },
+    address: {
+        type: String,
+        require: true
+    },
     amount: {
         type: Number,
         require: true
@@ -23,6 +27,10 @@ const orderItemSchema = mongoose.Schema({
         type: String,
         enum: ['waiting', 'processing', 'shipping', 'close', 'denied'],
         default: 'waiting'
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 })
 

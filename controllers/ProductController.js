@@ -32,9 +32,10 @@ module.exports.getProductDetail = async (req, res, next) => {
 
 module.exports.getProductList = async (req, res, next) => {
     try {
-        const limit = Math.max(10, req.params.page)
-        const page = Math.max(0, req.params.page)
-        let products = await Product.find({}).limit(limit).skip(page * limit).sort({rating: 'desc'});
+        const limit = Math.max(10, req.query.limit)
+        const page = Math.max(0, req.query.page)
+        const sellerId = req.query.sellerId;
+        let products = await Product.find({sellerId}).limit(limit).skip(page * limit).sort({rating: 'desc'});
         return res.status(200).json({success: true, msg: 'success', docs: products});
     } catch(e) {
         console.log(e);

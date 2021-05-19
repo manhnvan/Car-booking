@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const sellerSchema = mongoose.Schema({
-    name: {
+    username: {
         type: String,
         require: true
     },
-    identification: {
+    address: {
         type: String,
         require: true,
         unique: true
@@ -14,10 +14,6 @@ const sellerSchema = mongoose.Schema({
         type: String,
         require: true,
         unique: true
-    },
-    shopName: {
-        type: String,
-        require: true
     },
     password: {
         type: String,

@@ -18,3 +18,34 @@ module.exports.create = async (req, res, next) => {
         return res.status(400).json({success: false, msg: 'create seller fail'})
     }   
 }
+
+module.exports.login = async (req, res, next) => {
+    try {
+        const { phone, password } = req.body;
+
+        console.log('user login in');
+
+        // Checking if the email is not exist
+        const owner = await Seller.findOne({ phone });
+        if (!owner) return res.status(200).json({ success: false, msg: "Account not found" });
+
+        // Checking Password is correct
+        const validPassword = await bcrypt.compare(password, owner.password);
+        if (!validPassword) {
+            res.status(200).json({ success: false, msg: "Invalid password" });
+            return;
+        }
+
+        //Create and assign a token 
+        res.status(200).json({
+            ...owner._doc, 
+            password: '',
+            success: true
+        });
+    } catch (e) {
+        console.log(e)
+        res.status(400).json({
+            success: false
+        });
+    }
+}
