@@ -19,6 +19,17 @@ module.exports.create = async (req, res, next) => {
     }   
 }
 
+module.exports.update = async (req, res, next) => {
+    try {
+        const {id} = req.params
+        const productInDB = await Product.findByIdAndUpdate(id, {...req.body});
+        return res.status(200).json({success: true, msg: 'success', doc: productInDB});
+    } catch(e) {
+        console.log(e);
+        return res.status(400).json({success: false, msg: 'create seller fail'});
+    }   
+}
+
 module.exports.getProductDetail = async (req, res, next) => {
     try {
         const id = req.params.productId

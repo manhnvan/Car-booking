@@ -1,4 +1,5 @@
 const Seller = require("../models/Seller.js");
+const OrderItem = require("../models/OrderItem");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -17,6 +18,32 @@ module.exports.create = async (req, res, next) => {
         console.log(e);
         return res.status(400).json({success: false, msg: 'create seller fail'})
     }   
+}
+
+module.exports.getInfo = async (req, res, next) => {
+    try {
+        const {sellerId} = req.params;
+        const seller = await Seller.findById(sellerId);
+        const waitingItem = await OrderItem.countDocuments({sellerId: sellerId, status: 'waiting'});
+        const processingItem = await OrderItem.countDocuments({sellerId: sellerId, status: 'processing'});
+        const shippingItem = await OrderItem.countDocuments({sellerId: sellerId, status: 'shipping'});
+        const closeItem = await OrderItem.countDocuments({sellerId: sellerId, status: 'close'});
+        const deniedItem = await OrderItem.countDocuments({sellerId: sellerId, status: 'denied'});
+        return res.status(200).json({success: true, doc: {
+            ...seller._doc,
+            password: '',
+            waitingItem,
+            processingItem,
+            shippingItem,
+            closeItem,
+            deniedItem
+        }})
+    } catch (e) {
+        return res.status(400).json({success: false, msg: 'fail to get seller information'})
+    }
+    
+
+
 }
 
 module.exports.login = async (req, res, next) => {

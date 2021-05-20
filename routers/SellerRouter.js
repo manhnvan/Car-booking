@@ -5,4 +5,6 @@ route.post('/create', sellerController.create)
 
 route.post('/login', sellerController.login)
 
+route.get('/:sellerId', sellerController.getInfo)
+
 module.exports = route;

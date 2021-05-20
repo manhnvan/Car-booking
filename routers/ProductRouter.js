@@ -7,6 +7,8 @@ route.get('/', productController.getProductList)
 
 route.post('/create', productController.create)
 
+route.put('/:id', productController.update)
+
 
 
 module.exports = route;
