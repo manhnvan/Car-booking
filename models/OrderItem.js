@@ -15,6 +15,11 @@ const orderItemSchema = mongoose.Schema({
         require: true,
         ref: 'seller',
     },
+    customerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref: 'customer',
+    },
     address: {
         type: String,
         require: true
@@ -31,6 +36,26 @@ const orderItemSchema = mongoose.Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    waiting: {
+        type: Date,
+        default: Date.now
+    },
+    processing: {
+        type: Date,
+        default: ""
+    },
+    shipping: {
+        type: Date,
+        default: ""
+    },
+    close: {
+        type: Date,
+        default: ""
+    },
+    denied: {
+        type: Date,
+        default: ""
     }
 })
 

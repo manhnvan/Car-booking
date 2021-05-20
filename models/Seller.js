@@ -18,6 +18,10 @@ const sellerSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
+    },
+    shopName: {
+        type: String,
+        require: true
     }
 })
 
