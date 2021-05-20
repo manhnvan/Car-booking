@@ -1,12 +1,27 @@
 const route = require('express').Router();
 const OrderController = require('../controllers/OrderController');
 
-route.post('/', OrderController.create)
+//Create order
+route.post('/create', OrderController.create)
 
+//Update order status
 route.put('/updateOrderItemStatus/:orderItemId', OrderController.updateOrderItemStatus)
 
-route.get('/item/:sellerId/:status', OrderController.getListOrderItem)
+// CUSTOMER
+//Get active order list
+route.get('/item/customer/:customerId', OrderController.getListItemCustomer)
 
+//Get inactive order list (delivered or denied)
+route.get('/item/customer/:customerId/:status', OrderController.getListItemCustomerByStatus)
+
+// SELLER
+//Get active order list
+route.get('/item/seller/:sellerId', OrderController.getListItemSeller)
+
+//Get inactive order list (delivered or denied)
+route.get('/item/seller/:sellerId/:status', OrderController.getListItemSellerByStatus)
+
+//Delete item
 route.delete('/item/:orderItemId', OrderController.deleteOrderItem)
 
 module.exports = route;
