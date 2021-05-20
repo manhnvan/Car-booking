@@ -43,19 +43,19 @@ const orderItemSchema = mongoose.Schema({
     },
     processing: {
         type: Date,
-        default: ""
+        default: null
     },
     shipping: {
         type: Date,
-        default: ""
+        default: null
     },
     close: {
         type: Date,
-        default: ""
+        default: null
     },
     denied: {
         type: Date,
-        default: ""
+        default: null
     }
 })
 
