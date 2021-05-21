@@ -53,19 +53,19 @@ module.exports.login = async (req, res, next) => {
         console.log('user login in');
 
         // Checking if the email is not exist
-        const owner = await Seller.findOne({ phone });
-        if (!owner) return res.status(200).json({ success: false, msg: "Account not found" });
+        const seller = await Seller.findOne({ phone });
+        if (!seller) return res.status(200).json({ success: false, msg: "Tài khoản hoặc mật khẩu không đúng" });
 
         // Checking Password is correct
-        const validPassword = await bcrypt.compare(password, owner.password);
+        const validPassword = await bcrypt.compare(password, seller.password);
         if (!validPassword) {
-            res.status(200).json({ success: false, msg: "Invalid password" });
+            res.status(200).json({ success: false, msg: "Tài khoản hoặc mật khẩu không đúng" });
             return;
         }
 
         //Create and assign a token 
         res.status(200).json({
-            ...owner._doc, 
+            ...seller._doc, 
             password: '',
             success: true
         });

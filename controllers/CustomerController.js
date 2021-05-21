@@ -7,7 +7,7 @@ module.exports.create = async (req, res, next) => {
         const phone = req.body.phone;
         const isExist = await Customer.findOne({'phone': phone});
         if (isExist) {
-            return res.status(200).json({success: false, msg: 'duplicate phone number'})
+            return res.status(200).json({success: false, msg: 'Số điện thoại đã được sử dụng bởi một tài khoản khác'})
         }
         const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
         const customer = new Customer({...req.body, password: hashPassword});
@@ -15,6 +15,28 @@ module.exports.create = async (req, res, next) => {
         return res.status(200).json({success: true, msg: 'success', doc: savedCustomer})
     } catch(e) {
         console.log(e);
-        return res.status(400).json({success: false, msg: 'create seller fail'})
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'})
     }   
+}
+
+module.exports.login = async (req, res, next) => {
+    try {
+        const {phone, password} = req.body;
+        const customer = await Customer.findOne({phone});
+        if (!customer) {
+            return res.status(200).json({success: false, msg: "Tài khoản hoặc mật khẩu không đúng"})
+        }
+        const validPassword = await bcrypt.compare(password, customer.password);
+        if (!validPassword) {
+            return res.status(200).json({success: false, msg: "Tài khoản hoặc mật khẩu không đúng"})
+        }
+        return res.status(200).json({
+            ...customer._doc, 
+            password: '',
+            success: true
+        }); 
+    }  catch (error) {
+        console.log(error);
+        return res.status(400).json({success: false, msg: 'Đăng nhập thất bại'})
+    }
 }
