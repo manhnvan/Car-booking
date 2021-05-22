@@ -46,8 +46,13 @@ module.exports.getProductList = async (req, res, next) => {
         const limit = Math.max(10, req.query.limit)
         const page = Math.max(0, req.query.page)
         const sellerId = req.query.sellerId;
-        let products = await Product.find({sellerId}).limit(limit).skip(page * limit).sort({rating: 'desc'});
-        return res.status(200).json({success: true, msg: 'success', docs: products});
+        if (sellerId) {
+            let products = await Product.find({sellerId}).limit(limit).skip(page * limit);
+            return res.status(200).json({success: true, msg: 'success', docs: products});
+        } else {
+            let products = await Product.find().limit(limit).skip(page * limit).sort({rating: 'desc'});
+            return res.status(200).json({success: true, msg: 'success', docs: products});
+        }
     } catch(e) {
         console.log(e);
         return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
