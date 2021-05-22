@@ -1,5 +1,6 @@
 const Customer = require("../models/Customer");
 const bcrypt = require("bcrypt");
+const ShoppingCart = require("../models/ShoppingCart");
 const saltRounds = 10;
 
 module.exports.create = async (req, res, next) => {
@@ -11,6 +12,8 @@ module.exports.create = async (req, res, next) => {
         }
         const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
         const customer = new Customer({...req.body, password: hashPassword});
+        const newCart = new ShoppingCart({customerId: customer._id});
+        newCart.save()
         const savedCustomer = await customer.save();
         return res.status(200).json({success: true, msg: 'success', doc: savedCustomer})
     } catch(e) {

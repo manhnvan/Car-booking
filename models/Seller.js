@@ -21,7 +21,11 @@ const sellerSchema = mongoose.Schema({
     },
     shopName: {
         type: String,
-        require: true
+        require: true,
+        unique: true
+    },
+    avatar: {
+        type: String,
     }
 })
 

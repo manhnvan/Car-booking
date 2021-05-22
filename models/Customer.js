@@ -12,6 +12,9 @@ const customerSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
+    },
+    avatar: {
+        type: String
     }
 })
 
