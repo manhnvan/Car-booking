@@ -1,6 +1,8 @@
 const route = require('express').Router();
 const productController = require('../controllers/ProductController');
 
+route.get('/lastest', productController.getListNewProduct)
+
 route.get('/:productId', productController.getProductDetail)
 
 route.get('/', productController.getProductList)

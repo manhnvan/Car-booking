@@ -15,7 +15,7 @@ module.exports.create = async (req, res, next) => {
         return res.status(200).json({success: true, msg: 'success', doc: savedProduct});
     } catch(e) {
         console.log(e);
-        return res.status(400).json({success: false, msg: 'create seller fail'});
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
     }   
 }
 
@@ -26,7 +26,7 @@ module.exports.update = async (req, res, next) => {
         return res.status(200).json({success: true, msg: 'success', doc: productInDB});
     } catch(e) {
         console.log(e);
-        return res.status(400).json({success: false, msg: 'create seller fail'});
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
     }   
 }
 
@@ -37,7 +37,7 @@ module.exports.getProductDetail = async (req, res, next) => {
         return res.status(200).json({success: true, msg: 'success', doc: product});
     } catch(e) {
         console.log(e);
-        return res.status(400).json({success: false, msg: 'get detail fail'});
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
     }
 }
 
@@ -50,6 +50,18 @@ module.exports.getProductList = async (req, res, next) => {
         return res.status(200).json({success: true, msg: 'success', docs: products});
     } catch(e) {
         console.log(e);
-        return res.status(400).json({success: false, msg: 'get detail fail'});
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
+    }
+}
+
+module.exports.getListNewProduct = async (req, res, next) => {
+    try {
+        const limit = Math.max(10, req.query.limit)
+        const page = Math.max(0, req.query.page)
+        let products = await Product.find().limit(limit).skip(page * limit).sort({created: 'desc'});
+        return res.status(200).json({success: true, msg: 'success', docs: products});
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
     }
 }
