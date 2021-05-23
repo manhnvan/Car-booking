@@ -4,8 +4,8 @@ const Product = require('../models/Product')
 module.exports.likeAction = async (req, res, next) => {
     try {
         const {product, user} = req.body;
-        const rating = await Like.findOne({product, user});
-        if (rating) {
+        const liked = await Like.findOne({product, user});
+        if (liked) {
             await Like.deleteOne({product, user});
         } else {
             const like = new Like({product, user});
