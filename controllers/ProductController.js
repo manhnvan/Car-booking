@@ -70,3 +70,18 @@ module.exports.getListNewProduct = async (req, res, next) => {
         return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
     }
 }
+
+module.exports.getProductByQuey = async (req, res, next) => {
+    try {
+        const textQuery = req.query.q;
+        const products = await Product.find({
+            $text: {
+                $search: textQuery
+            }
+        })
+        return res.status(200).json({success: true, msg: 'success', docs: products});
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});
+    }
+}

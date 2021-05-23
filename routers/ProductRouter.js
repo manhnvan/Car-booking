@@ -1,6 +1,8 @@
 const route = require('express').Router();
 const productController = require('../controllers/ProductController');
 
+route.get('/textQuery', productController.getProductByQuey)
+
 route.get('/lastest', productController.getListNewProduct)
 
 route.get('/:productId', productController.getProductDetail)
