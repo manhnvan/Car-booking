@@ -32,7 +32,7 @@ module.exports.updateMultiProductStateInCart = async (req, res, next) => {
     try {
         var cart = await ShoppingCart.updateMany({customerId: customerId, "items.productId": {$in: listProductId}}, {$set: {'items.$[].checked': checked}});
         console.log(cart)
-        return res.status(400).json({success: true, msg: 'product updated successfully', data: cart});
+        return res.status(200).json({success: true, msg: 'product updated successfully', data: cart});
     } catch(e) {
         console.log(e)
         return res.status(400).json({success: false, msg: 'failed to update product in cart'});
