@@ -2,7 +2,10 @@ const route = require('express').Router();
 const shoppingCartController = require('../controllers/ShoppingCartController');
 
 //Adjust product in cart (increase/decrease/remove one product)
-route.post('/customer/:customerId/add/:productId', shoppingCartController.adjustProductInCart)
+route.post('/customer/:customerId/update/:productId', shoppingCartController.updateProductInCart)
+
+//Update state of multi product in cart
+route.put('/customer/:customerId/update/state', shoppingCartController.updateMultiProductStateInCart)
 
 //Get product from cart by customerId
 route.get('/customer/:customerId/getCart', shoppingCartController.getShoppingCart)

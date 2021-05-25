@@ -7,8 +7,7 @@ const sellerSchema = mongoose.Schema({
     },
     address: {
         type: String,
-        require: true,
-        unique: true
+        address: true
     },
     phone: {
         type: String,
@@ -26,6 +25,7 @@ const sellerSchema = mongoose.Schema({
     },
     avatar: {
         type: String,
+        default: "https://nongdan.pro/wp-content/uploads/2017/05/shop-icon.png"
     }
 })
 
