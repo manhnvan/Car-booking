@@ -34,7 +34,12 @@ module.exports.getProductDetail = async (req, res, next) => {
     try {
         const id = req.params.productId
         let product = await Product.findById(id);
-        return res.status(200).json({success: true, msg: 'success', doc: product});
+        const isLiked = await Like.findOne({
+            product : id,
+            user: req.headers.authorization
+            
+        })
+        return res.status(200).json({success: true, msg: 'success', doc: product, isLiked: isLiked != null});
     } catch(e) {
         console.log(e);
         return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'});

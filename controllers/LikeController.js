@@ -13,7 +13,8 @@ module.exports.likeAction = async (req, res, next) => {
         }  
         const totalLikeOfProduct = await Like.count({product: product})
         await Product.findOneAndUpdate({_id: product}, {like: totalLikeOfProduct});
-        return res.status(200).json({success: true, totalLikeOfProduct: totalLikeOfProduct, product: product})
+        const isLiked = await Like.findOne({product, user});
+        return res.status(200).json({success: true, totalLikeOfProduct: totalLikeOfProduct, product: product, isLiked: isLiked != null})
     } catch(e) {
         console.log(e);
         return res.status(400).json({success: false, msg: 'fail'})
