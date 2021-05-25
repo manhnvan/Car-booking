@@ -19,6 +19,10 @@ var shoppingCartSchema = new Schema({
         require: true,
         default: 0
       },
+      checked: {
+        type: Boolean,
+        default: true
+      }
     },
   ],
   created: {
