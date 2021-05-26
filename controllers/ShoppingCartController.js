@@ -44,6 +44,35 @@ module.exports.updateMultiProductStateInCart = async (req, res, next) => {
     }
 } 
 
+//Add product to cart immediately and uncheck others product
+module.exports.BuyNow = async (req, res, next) => {
+    const {customerId, productId} = req.params;
+    try {
+        var cart = await ShoppingCart.findOne({customerId: customerId})
+        var existed = false
+        cart.items.forEach((element, index) => {
+            if(element.productId != productId) cart.items[index].checked = false
+            else {
+                cart.items[index].checked = true
+                cart.items[index].amount += 1
+                existed = true
+            }
+        });
+        if(!existed) {
+            cart.items.push({
+                "productId": productId,
+                "amount": 1,
+                "checked": true
+            })
+        }
+        cart.save()
+        return res.status(200).json({success: true, msg: 'product updated successfullyssss', data: cart});
+    } catch(e) {
+        console.log(e)
+        return res.status(400).json({success: false, msg: 'failed to update product in cart'});
+    }
+} 
+
 //Get shopping cart product
 module.exports.getShoppingCart = async (req, res, next) => {
     const {customerId} = req.params
