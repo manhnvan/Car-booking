@@ -7,6 +7,9 @@ route.post('/customer/:customerId/update/:productId', shoppingCartController.upd
 //Update state of multi product in cart
 route.post('/customer/:customerId/updatemulti', shoppingCartController.updateMultiProductStateInCart)
 
+//Add product to cart immediately and uncheck others product
+route.post('/customer/:customerId/buynow/:productId', shoppingCartController.BuyNow)
+
 //Get product from cart by customerId
 route.get('/customer/:customerId/getCart', shoppingCartController.getShoppingCart)
 
