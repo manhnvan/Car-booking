@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 // connect mongoDB
 mongoose
-	.connect(process.env.MONGO_DB_TEST, {
+	.connect(process.env.MONGO_DB, {
 		useUnifiedTopology: true,
 		useNewUrlParser: true,
 		useCreateIndex: true,
