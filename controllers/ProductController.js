@@ -33,7 +33,7 @@ module.exports.update = async (req, res, next) => {
 module.exports.getProductDetail = async (req, res, next) => {
     try {
         const id = req.params.productId
-        let product = await Product.findById(id);
+        let product = await Product.findOne({_id: id}).populate('sellerId');
         const isLiked = await Like.findOne({
             product : id,
             user: req.headers.authorization
