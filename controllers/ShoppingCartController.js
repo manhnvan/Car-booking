@@ -87,7 +87,7 @@ module.exports.getShoppingCart = async (req, res, next) => {
             const i = newCart.items[p]
             const index = newCart.items.findIndex(x => x.shopName == i.productId.sellerId.shopName)
             if(index > -1) { //exist seller
-                newCart.items[index].products.push({
+                newCart.items[index]["products"].push({
                     "product": i.productId,
                     "amount": i.amount,
                     "checked": i.checked
