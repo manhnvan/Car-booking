@@ -5,7 +5,10 @@ const shoppingCartController = require('../controllers/ShoppingCartController');
 route.post('/customer/:customerId/update/:productId', shoppingCartController.updateProductInCart)
 
 //Update state of multi product in cart
-route.put('/customer/:customerId/update/state', shoppingCartController.updateMultiProductStateInCart)
+route.post('/customer/:customerId/updatemulti', shoppingCartController.updateMultiProductStateInCart)
+
+//Add product to cart immediately and uncheck others product
+route.post('/customer/:customerId/buynow/:productId', shoppingCartController.BuyNow)
 
 //Get product from cart by customerId
 route.get('/customer/:customerId/getCart', shoppingCartController.getShoppingCart)
