@@ -7,4 +7,6 @@ route.post('/login', sellerController.login)
 
 route.get('/:sellerId', sellerController.getInfo)
 
+route.get('/:sellerId/customer/:customerId', sellerController.customerGetInfoSeller)
+
 module.exports = route;

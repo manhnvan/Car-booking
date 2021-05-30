@@ -34,6 +34,7 @@ app.use('/seller', require('./routers/SellerRouter'));
 app.use('/customer', require('./routers/CustomerRouter'));
 app.use('/product', require('./routers/ProductRouter'));
 app.use('/rating', require('./routers/RatingRouter'));
+app.use('/follow', require('./routers/FollowRouter'));
 app.use('/like', require('./routers/LikeRouter'));
 app.use('/order', require('./routers/OrderRouter'));
 app.use('/comment', require('./routers/CommentRouter'));

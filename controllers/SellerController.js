@@ -1,5 +1,7 @@
 const Seller = require("../models/Seller.js");
+const Product = require("../models/Product.js");
 const OrderItem = require("../models/OrderItem");
+const Follow = require("../models/Follow");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -42,8 +44,42 @@ module.exports.getInfo = async (req, res, next) => {
         return res.status(400).json({success: false, msg: 'fail to get seller information'})
     }
     
+}
 
+module.exports.customerGetInfoSeller = async (req, res, next) => {
+    try {
+        var rating = 0;
+        var rateAmount = 0;
+        const {sellerId, customerId} = req.params;
+        const p1 = new Promise((res, rej) => {
+            Seller.findById(sellerId).select('-password').then((value) => res(value))
+        })
+        const p2 = new Promise((res, rej) => {
+            Product.find({sellerId: sellerId}).then((value) => res(value))
+        })
 
+        const p3 = new Promise((res, rej) => {
+            Follow.findOne({sellerId, customerId}).then((value) => value ? res(true) : res(false))
+        })
+        const [seller, listProduct, follow] = await Promise.all([p1, p2, p3])
+        listProduct.forEach(p => {
+            if(p.rating != 0){
+                rateAmount += 1
+                rating += p.rating/listProduct.length()
+            }
+        })
+        return res.status(200).json({success: true, doc: {
+            ...seller._doc,
+            rating: rating.toFixed(1),
+            rateAmount: rateAmount,
+            isFollowed: follow,
+            products: listProduct
+        }})
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({success: false, msg: 'fail to get seller information'})
+    }
+    
 }
 
 module.exports.login = async (req, res, next) => {

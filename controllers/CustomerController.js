@@ -43,3 +43,21 @@ module.exports.login = async (req, res, next) => {
         return res.status(400).json({success: false, msg: 'Đăng nhập thất bại'})
     }
 }
+
+module.exports.getInfo = async (req, res, next) => {
+    const {customerId} = req.params
+    try {
+        const customer = await Customer.findById(customerId).select('-password')
+        console.log(customer)
+        if (!customer) {
+            return res.status(200).json({success: false, msg: "Lỗi khi tải thông tin cá nhân"})
+        }
+        return res.status(200).json({
+            ...customer._doc, 
+            success: true
+        }); 
+    }  catch (error) {
+        console.log(error);
+        return res.status(400).json({success: false, msg: 'Đã có lỗi xảy ra'})
+    }
+}
