@@ -77,7 +77,7 @@ module.exports.getListItemCustomerByStatus = async (req, res, next) => {
 module.exports.getListItemSeller = async (req, res, next) => {
     const {sellerId} = req.params;
     try {
-        const orderItems = await OrderItem.find({sellerId, close: null, denied: null}).populate('productId').populate('sellerId', '-password');
+        const orderItems = await OrderItem.find({sellerId, close: null, denied: null}).populate('productId customerId').populate('sellerId', '-password');
         return res.status(200).json({success: true, items: orderItems})
     } catch (e) {
         return res.status(400).json({success: false, msg: 'fail to get order item list1'});
@@ -88,7 +88,7 @@ module.exports.getListItemSeller = async (req, res, next) => {
 module.exports.getListItemSellerByStatus = async (req, res, next) => {
     const {sellerId, status} = req.params;
     try {
-        const orderItems = await OrderItem.find({sellerId, status}).populate('productId').populate('sellerId', '-password');
+        const orderItems = await OrderItem.find({sellerId, status}).populate('productId customerId').populate('sellerId', '-password');
         return res.status(200).json({success: true, items: orderItems})
     } catch (e) {
         return res.status(400).json({success: false, msg: 'fail to get order item list1'});
