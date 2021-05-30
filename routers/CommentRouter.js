@@ -1,6 +1,8 @@
 const route = require('express').Router();
 const commentController = require('../controllers/CommentController');
 
-route.post('/', commentController.create)
+route.post('/create', commentController.create)
+
+route.post('/login', commentController.login)
 
 module.exports = route;
