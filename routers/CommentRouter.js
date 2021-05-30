@@ -3,6 +3,5 @@ const commentController = require('../controllers/CommentController');
 
 route.post('/create', commentController.create)
 
-route.post('/login', commentController.login)
 
 module.exports = route;
