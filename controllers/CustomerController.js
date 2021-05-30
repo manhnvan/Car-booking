@@ -1,6 +1,7 @@
 const Customer = require("../models/Customer");
 const bcrypt = require("bcrypt");
 const ShoppingCart = require("../models/ShoppingCart");
+const Follow = require("../models/Follow");
 const saltRounds = 10;
 
 module.exports.create = async (req, res, next) => {
@@ -47,13 +48,19 @@ module.exports.login = async (req, res, next) => {
 module.exports.getInfo = async (req, res, next) => {
     const {customerId} = req.params
     try {
-        const customer = await Customer.findById(customerId).select('-password')
-        console.log(customer)
+        const p1 = new Promise((res,rej) => 
+                Customer.findById(customerId).select('-password').then((value) => res(value))
+            )
+        const p2 = new Promise((res,rej) => 
+                Follow.find({customerId: customerId}).populate('sellerId', '-password').then((value) => res(value))
+            )
+        const [customer, listFollow] = await Promise.all([p1,p2])
         if (!customer) {
             return res.status(200).json({success: false, msg: "Lỗi khi tải thông tin cá nhân"})
         }
         return res.status(200).json({
-            ...customer._doc, 
+            ...customer._doc,
+            listFollow: listFollow, 
             success: true
         }); 
     }  catch (error) {
