@@ -61,7 +61,11 @@ module.exports.customerGetInfoSeller = async (req, res, next) => {
         const p3 = new Promise((res, rej) => {
             Follow.findOne({sellerId, customerId}).then((value) => value ? res(true) : res(false))
         })
-        const [seller, listProduct, follow] = await Promise.all([p1, p2, p3])
+
+        const p4 = new Promise((res, rej) => {
+            Follow.countDocuments({sellerId: sellerId}).then((value) => res(value))
+        })
+        const [seller, listProduct, isFollowed, followCount] = await Promise.all([p1, p2, p3, p4])
         listProduct.forEach(p => {
             if(p.rating != 0){
                 rateAmount += 1
@@ -72,7 +76,8 @@ module.exports.customerGetInfoSeller = async (req, res, next) => {
             ...seller._doc,
             rating: rating.toFixed(1),
             rateAmount: rateAmount,
-            isFollowed: follow,
+            isFollowed: isFollowed,
+            followCount: followCount,
             products: listProduct
         }})
     } catch (e) {
