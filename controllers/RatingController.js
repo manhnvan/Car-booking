@@ -22,3 +22,17 @@ module.exports.rateAction = async (req, res, next) => {
         return res.status(400).json({success: false, msg: 'fail'})
     }
 }
+
+module.exports.checkRate = async (req, res, next) => {
+    try {
+        const {product, customerId} = req.body;
+        const rating = await Rating.findOne({product, customerId});
+        if(rating) {
+            return res.status(200).json({success: true, rate: rating.star})
+        }
+        else return res.status(200).json({success: true, rate: 0})
+    } catch(e) {
+        console.log(e);
+        return res.status(400).json({success: false, msg: 'fail'})
+    }
+}
