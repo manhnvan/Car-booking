@@ -3,14 +3,14 @@ const Product = require('../models/Product')
 
 module.exports.rateAction = async (req, res, next) => {
     try {
-        const {product, star, user} = req.body;
-        const rating = await Rating.findOne({product, user});
+        const {product, star, customerId} = req.body;
+        const rating = await Rating.findOne({product, customerId});
         let savedRating;
         if (rating) {
             rating.star = star;
             savedRating = await rating.save();
         } else {
-            const rate = new Rating({product, star, user});
+            const rate = new Rating({product, star, customerId});
             savedRating = await rate.save();
         }  
         const rateListOfProduct = await Rating.find({product: product});

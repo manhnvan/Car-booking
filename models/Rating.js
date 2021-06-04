@@ -11,9 +11,9 @@ const ratingSchema = mongoose.Schema({
             return this.star > 0.5 && this.star <= 5 
         },
     },
-    user: {
+    customerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'customer'
     }
 })
 
