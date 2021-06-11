@@ -69,7 +69,7 @@ module.exports.customerGetInfoSeller = async (req, res, next) => {
         listProduct.forEach(p => {
             if(p.rating != 0){
                 rateAmount += 1
-                rating += p.rating/listProduct.length()
+                rating += p.rating/listProduct.length
             }
         })
         return res.status(200).json({success: true, doc: {
