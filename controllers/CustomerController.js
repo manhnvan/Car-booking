@@ -51,8 +51,6 @@ module.exports.changePassword = async (req, res, next) => {
         const {oldPassword, newPassword} = req.body;
         const customer = await Customer.findById(customerId);
         if (customer) {
-            console.log(oldPassword)
-            console.log(customer.password)
             const validPassword = await bcrypt.compare(oldPassword, customer.password);
             if(validPassword) {
                 const hashPassword = await bcrypt.hash(newPassword, saltRounds);
@@ -116,8 +114,6 @@ module.exports.updateInfo = async (req, res, next) => {
                 res.status(200).json({success: true, msg: 'Thay đổi thông tin thành công', doc: findId})
             }
             else{
-                console.log(findPhone)
-                console.log(customerId)
                 res.status(200).json({success: false, msg: 'Số điện thoại này đã tồn tại'})
             } 
         }
