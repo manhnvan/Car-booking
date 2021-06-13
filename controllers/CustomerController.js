@@ -28,7 +28,7 @@ module.exports.login = async (req, res, next) => {
         const {phone, password} = req.body;
         const customer = await Customer.findOne({phone});
         if (!customer) {
-            return res.status(200).json({success: false, msg: "Tài khoản hoặc mật khẩu không đúng"})
+            return res.status(200).json({success: false, msg: "Không tìm thấy tài khoản"})
         }
         const validPassword = await bcrypt.compare(password, customer.password);
         if (!validPassword) {
