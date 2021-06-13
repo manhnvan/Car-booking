@@ -109,7 +109,7 @@ module.exports.updateInfo = async (req, res, next) => {
                 findId.avatar = user.avatar;
                 findId.username = user.username;
                 findId.phone = user.phone;
-                findId.addres = user.addres;
+                findId.address = user.address;
                 await findId.save()
                 res.status(200).json({success: true, msg: 'Thay đổi thông tin thành công', doc: findId})
             }
