@@ -72,6 +72,21 @@ module.exports.getListItemCustomerByStatus = async (req, res, next) => {
     }
 }
 
+//Customer cancel orderItem
+module.exports.customerCancelOrder = async (req, res, next) => {
+    const {orderItemId} = req.body;
+    try {
+        const orderItems = await OrderItem.findById(orderItemId);
+        orderItems.status = "denied";
+        orderItems.denied = Date.now();
+        orderItems.save();
+        return res.status(200).json({success: true, items: orderItems})
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({success: false, msg: 'Không thể huỷ đơn'});
+    }
+}
+
 // SELLER
 //Get active order list
 module.exports.getListItemSeller = async (req, res, next) => {

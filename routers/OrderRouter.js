@@ -14,6 +14,9 @@ route.get('/item/customer/:customerId', OrderController.getListItemCustomer)
 //Get inactive order list (delivered or denied)
 route.get('/item/customer/:customerId/:status', OrderController.getListItemCustomerByStatus)
 
+//Customer cancel order
+route.post('/item/customer/cancel', OrderController.customerCancelOrder)
+
 // SELLER
 //Get active order list
 route.get('/item/seller/:sellerId', OrderController.getListItemSeller)
