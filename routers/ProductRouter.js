@@ -1,7 +1,9 @@
 const route = require('express').Router();
 const productController = require('../controllers/ProductController');
 
-route.get('/textQuery', productController.getProductByQuey)
+route.get('/textQuery', productController.getProductByQuery)
+
+route.post('/imageQuery', productController.getProductByImage)
 
 route.get('/lastest', productController.getListNewProduct)
 
