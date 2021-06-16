@@ -14,6 +14,8 @@ const productSchema = mongoose.Schema({
 
     categories: [String],
 
+    hiddenCategories: [String],
+
     productImages: [String],
     
     thumbnail: {
