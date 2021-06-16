@@ -6,11 +6,13 @@ var mongoose = require('mongoose');
 module.exports.create = async (req, res, next) => {
     try {
         const {productName, sellerId} = req.body
+        console.log(req.body)
         const productInDB = await Product.findOne({productName, sellerId})
         if (productInDB) {
             return res.status(200).json({success: false, msg: 'duplicate product', doc: productInDB});
         }
         const product = new Product({...req.body});
+        product.hiddenCategories = req.body.hiddenCategories;
         const savedProduct = await product.save();
         return res.status(200).json({success: true, msg: 'success', doc: savedProduct});
     } catch(e) {
