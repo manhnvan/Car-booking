@@ -40,6 +40,7 @@ app.use('/order', require('./routers/OrderRouter'));
 app.use('/comment', require('./routers/CommentRouter'));
 app.use('/upload', require('./routers/FileUplpoad'))
 app.use('/cart', require('./routers/ShoppingCartRouter'))
+app.use('/notification', require('./routers/NotificationRouter'))
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
