@@ -1,6 +1,6 @@
 const route = require('express').Router();
-const serviceAccount = require('../api_key_firebase.json');
-const FCM = require('fcm-node');
+// const serviceAccount = require('../api_key_firebase.json');
+// const FCM = require('fcm-node');
 
 let fcm_customer = new FCM(serviceAccount);
 
