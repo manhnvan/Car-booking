@@ -3,8 +3,7 @@ const FCM = require('fcm-node');
 
 const fcm = new FCM(serviceAccount);
 
-module.exports.sendNotification = (req, res, next) => {
-    const {token, title, body, data} = res.locals;
+module.exports.sendNotification = (token, title, body, data) => {
     const message = {
         to: token,
         notification: {
