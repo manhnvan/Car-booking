@@ -19,6 +19,9 @@ const customerSchema = mongoose.Schema({
     },
     avatar: {
         type: String
+    },
+    firebase_token: {
+        type: String
     }
 })
 

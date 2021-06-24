@@ -25,7 +25,8 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
     try {
-        const {phone, password} = req.body;
+        const {phone, password, firebaseToken} = req.body;
+        console.log(firebaseToken);
         const customer = await Customer.findOne({phone});
         if (!customer) {
             return res.status(200).json({success: false, msg: "Không tìm thấy tài khoản"})
@@ -34,6 +35,8 @@ module.exports.login = async (req, res, next) => {
         if (!validPassword) {
             return res.status(200).json({success: false, msg: "Tài khoản hoặc mật khẩu không đúng"})
         }
+        customer.firebase_token = firebaseToken;
+        customer.save();
         return res.status(200).json({
             ...customer._doc, 
             password: '',
