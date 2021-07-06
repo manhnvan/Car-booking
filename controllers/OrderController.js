@@ -53,6 +53,12 @@ module.exports.getListItemCustomer = async (req, res, next) => {
     const {customerId} = req.params;
     try {
         const orderItems = await OrderItem.find({customerId, close: null, denied: null}).populate('productId').populate('sellerId', '-password');
+        // sendNotification({
+        //     token: res.token, 
+        //     title: res.title, 
+        //     body: res.body, 
+        //     data: res.data
+        // })
         return res.status(200).json({success: true, items: orderItems})
     } catch (e) {
         console.log(e)

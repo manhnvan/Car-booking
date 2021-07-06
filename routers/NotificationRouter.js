@@ -2,7 +2,7 @@ const route = require('express').Router();
 // const serviceAccount = require('../api_key_firebase.json');
 // const FCM = require('fcm-node');
 
-let fcm_customer = new FCM(serviceAccount);
+// let fcm_customer = new FCM(serviceAccount);
 
 route.post("/", (req, res, next) => {
     // const message = {
