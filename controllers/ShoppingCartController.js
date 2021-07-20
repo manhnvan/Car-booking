@@ -99,6 +99,9 @@ module.exports.getShoppingCart = async (req, res, next) => {
                 newCart.items.unshift({
                     "shopName": i.productId.sellerId.shopName,
                     "avatar": i.productId.sellerId.avatar,
+                    "city": i.productId.sellerId.city,
+                    "district": i.productId.sellerId.district,
+                    "ward": i.productId.sellerId.ward,
                     "products": [
                         {
                             "product": i.productId,
