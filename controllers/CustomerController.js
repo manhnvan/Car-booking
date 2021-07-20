@@ -113,6 +113,9 @@ module.exports.updateInfo = async (req, res, next) => {
                 findId.username = user.username;
                 findId.phone = user.phone;
                 findId.address = user.address;
+                findId.city = user.city;
+                findId.district = user.district;
+                findId.ward = user.ward;
                 await findId.save()
                 res.status(200).json({success: true, msg: 'Thay đổi thông tin thành công', doc: findId})
             }
