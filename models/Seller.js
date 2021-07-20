@@ -5,9 +5,21 @@ const sellerSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    address: {
+    address : {
         type: String,
-        address: true
+        require: true
+    },
+    city : {
+        type: String,
+        require: true
+    },
+    district : {
+        type: String,
+        require: true
+    },
+    ward : {
+        type: String,
+        require: true
     },
     phone: {
         type: String,

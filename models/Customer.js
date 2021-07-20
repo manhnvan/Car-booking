@@ -18,15 +18,15 @@ const customerSchema = mongoose.Schema({
         require: true
     },
     city : {
-        type: Number,
+        type: String,
         require: true
     },
     district : {
-        type: Number,
+        type: String,
         require: true
     },
     ward : {
-        type: Number,
+        type: String,
         require: true
     },
     avatar: {
