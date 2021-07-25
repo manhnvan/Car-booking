@@ -10,8 +10,8 @@ module.exports.create = async (req, res, next) => {
         if (productInDB) {
             return res.status(200).json({success: false, msg: 'duplicate product', doc: productInDB});
         }
-        const product = new Product({...req.body});
-        product.hiddenCategories = req.body.hiddenCategories;
+        var product = new Product({...req.body, "hiddenCategories": req.body.hiddenCategories});
+        console.log(product)
         const savedProduct = await product.save();
         return res.status(200).json({success: true, msg: 'success', doc: savedProduct});
     } catch(e) {
