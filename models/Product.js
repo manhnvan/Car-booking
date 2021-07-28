@@ -44,5 +44,5 @@ let productSchema = mongoose.Schema({
         default: Date.now
     }
 })
-productSchema.index({ "$**": "text" },{ name: "TextIndex" });
+// productSchema.index({ "$**": "text" },{ name: "TextIndex" });
 module.exports = mongoose.model('product', productSchema);
