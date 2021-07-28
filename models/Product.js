@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productSchema = mongoose.Schema({
+let productSchema = mongoose.Schema({
     sellerId: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
@@ -14,7 +14,7 @@ const productSchema = mongoose.Schema({
 
     categories: [String],
 
-    hiddenCategories: [String],
+    hiddenCategories: String,
 
     productImages: [String],
     
@@ -44,5 +44,5 @@ const productSchema = mongoose.Schema({
         default: Date.now
     }
 })
-
+productSchema.index({ "$**": "text" },{ name: "TextIndex" });
 module.exports = mongoose.model('product', productSchema);

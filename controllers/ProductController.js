@@ -10,7 +10,9 @@ module.exports.create = async (req, res, next) => {
         if (productInDB) {
             return res.status(200).json({success: false, msg: 'duplicate product', doc: productInDB});
         }
-        var product = new Product({...req.body, "hiddenCategories": req.body.hiddenCategories});
+        var product = new Product({...req.body, 
+            "hiddenCategories": req.body.hiddenCategories.concat(req.body.categories).join(" ")
+        });
         console.log(product)
         const savedProduct = await product.save();
         return res.status(200).json({success: true, msg: 'success', doc: savedProduct});
@@ -81,14 +83,17 @@ module.exports.getProductByQuery = async (req, res, next) => {
     try {
         const textQuery = req.query.q;
         if (textQuery) {
+            console.log(`\"${textQuery}\"`)
             const products = await Product.find({
                 $text: {
-                    $search: textQuery
+                    $search: `\"${textQuery}\"`,
+                    $caseSensitive: false,
+                    $diacriticSensitive: false,
                 }
             })
             return res.status(200).json({success: true, msg: 'success', docs: products});
         } else {
-            let products = await Product.find().limit(10).sort({rating: 'desc'});
+            let products = await Product.find().limit(20).sort({rating: 'desc'});
             return res.status(200).json({success: true, msg: 'success', docs: products});
         }
     } catch (e) {
